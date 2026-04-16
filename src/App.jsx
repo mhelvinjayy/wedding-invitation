@@ -2,7 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 const venueAddress = 'Silica Events Place, 6th Floor, Kaija Building, 7836 Makati Avenue corner B. Valdez, Poblacion, Makati City'
 const googleMapsKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || ''
-const heroImagePath = `${import.meta.env.BASE_URL}wedding.jpg`
+const heroImagePath = `${import.meta.env.BASE_URL}images/wedding.png`
+const heroImageFallback = `${import.meta.env.BASE_URL}images/wedding.jpg`
 
 function loadGoogleMapsApi(key) {
   return new Promise((resolve, reject) => {
@@ -208,6 +209,11 @@ function App() {
             src={heroImagePath}
             alt="Wedding couple at the beach"
             className="hero-image"
+            onError={(event) => {
+              if (event.currentTarget.src !== heroImageFallback) {
+                event.currentTarget.src = heroImageFallback
+              }
+            }}
           />
         </div>
 
